@@ -35,6 +35,50 @@ class Solution(object):
                 rets.append(Table[(0, idx - 1)] * Table[(idx + 1, len(nums) - 1)])
         return rets
 
-        """ One solution online:
+        """ One solution: O(n) time but O(n) space : runtime 220ms
         """
-        
+        list1 = []
+        list2 = []
+        rets = []
+        s = 1
+        for idx in xrange(len(nums)):
+            list1.append(s)
+            s = s * nums[idx]
+        s = 1
+        for idx in xrange(len(nums) - 1, -1, -1):
+            list2.append(s)
+            s = s * nums[idx]
+        for idx in xrange(len(list1)):
+            rets.append(list1[idx] * list2[len(list2) - 1 - idx])
+        return rets
+
+        # I replace the index manipulation with list.reverse(), it's faster! runtime: 184ms
+
+        list1 = []
+        list2 = []
+        rets = []
+        s = 1
+        for idx in xrange(len(nums)):
+            list1.append(s)
+            s = s * nums[idx]
+        s = 1
+        for idx in xrange(len(nums) - 1, -1, -1):
+            list2.append(s)
+            s = s * nums[idx]
+        list2.reverse() # here is the reverse()
+        for idx in xrange(len(list1)):
+            rets.append(list1[idx] * list2[idx])
+        return rets
+
+        """ two lists are redundant, get rid of those can help achieve O(1) space. runtime: 168ms
+        """
+        rets = []
+        s = 1
+        for idx in xrange(len(nums)):
+            rets.append(s)
+            s = s * nums[idx]
+        s = 1
+        for idx in xrange(len(nums) - 1, -1, -1):
+            rets[idx] *= s
+            s = s * nums[idx]
+        return rets
