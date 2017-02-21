@@ -35,3 +35,16 @@ class Solution(object):
                 if prices[i] - small_pot > large - small:
                     small, large = small_pot, prices[i]
             return large - small
+
+        """ Second Round: Two pointers
+        """
+        if not prices:
+            return 0
+        else:
+            min, profit = prices[0], 0
+            for i in xrange(len(prices)):
+                if prices[i] < min:
+                    min = prices[i]
+                else:
+                    profit = max(profit, prices[i] - min)
+            return profit

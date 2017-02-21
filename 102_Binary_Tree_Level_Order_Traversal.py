@@ -14,8 +14,6 @@ class Solution(object):
 
         """ BFS
         """
-
-
         ret, level = [], [root]
 
         while root and level:
@@ -23,3 +21,28 @@ class Solution(object):
             LRpair = [(node.left, node.right) for node in level]
             level = [leaf for LR in LRpair for leaf in LR if leaf]
         return ret
+
+        """ My own BFS
+        """
+
+        result = []
+        level = []
+
+        if not root:
+            return result
+
+        level.append(root)
+
+        while level:
+            temp1 = []
+            temp2 = []
+            for node in level:
+                temp2.append(node.val)
+                if node.left:
+                    temp1.append(node.left)
+                if node.right:
+                    temp1.append(node.right)
+            level = temp1
+            result.append(temp2)
+
+        return result

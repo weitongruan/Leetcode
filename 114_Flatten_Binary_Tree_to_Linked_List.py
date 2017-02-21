@@ -33,3 +33,28 @@ class Solution(object):
         else:
             root.left, root.right, lrightmost.right = None, lroot, rroot
             return root, rrightmost
+
+    """ Pre-order traversal
+    """
+
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        if not root:
+            return None
+
+        stack = [root]
+        prev = None
+
+        while stack:
+            node = stack.pop()
+            if prev:
+                prev.left = None
+                prev.right = node
+            prev = node
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
